@@ -5,8 +5,8 @@ from .models import *
 
 class ProfilAdmin(UserAdmin):
     model = Profil
-    fieldsets = UserAdmin.fieldsets + (('Profil', {'fields': ('davlat', 'shahar', 'tel', 'jins')}),)
-    list_display = ['id', 'davlat', 'shahar', 'tel', 'jins', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'is_superuser']
+    fieldsets = UserAdmin.fieldsets + (('Profil', {'fields': ('davlat', 'shahar', 'tel', 'jins', 'tasdiqlangan')}),)
+    list_display = ['id', 'davlat', 'shahar', 'tel', 'jins', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'is_superuser', 'tasdiqlangan']
 
 
 admin.site.register(Profil, ProfilAdmin)

@@ -1,13 +1,19 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views import View
-
+from django.conf import settings
 from .models import Profil
+import random
+from eskiz.client import SMSClient
 
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'page-user-login.html')
+        if request.user.is_authenticated and request.user.tasdiqlangan:
+            return render(request, 'page-user-login.html')
+        elif request.user.tasdiqlangan == False:
+            return redirect('/user/tasdiqlash/')
+        return redirect('/user/register/')
 
     def post(self, request):
         user = authenticate(
@@ -25,19 +31,38 @@ class RegisterView(View):
         return render(request, 'page-user-register.html')
 
     def post(self, request):
-        try:
-            Profil.objects.create(
-                first_name=request.POST.get('first_name'),
-                last_name=request.POST.get('last_name'),
-                email=request.POST.get('email'),
-                username=request.POST.get('username'),  # Using email as the default username
-                password=request.POST.get('password'),
-                jins=request.POST.get('gender'),
-                davlat=request.POST.get('country'),
-                shahar=request.POST.get('city')
-            )
-        except Exception:
-            error_message = 'An error occurred during registration. Please try again.'
-            return render(request, 'page-user-register.html', {'error_message': error_message})
-        else:
+        profil = Profil.objects.create_user(
+            first_name=request.POST.get('first_name'),
+            last_name=request.POST.get('last_name'),
+            tel=request.POST.get('username'),
+            username=request.POST.get('username'),
+            password=request.POST.get('password1'),
+            jins=request.POST.get('gender'),
+            davlat=request.POST.get('country'),
+            shahar=request.POST.get('city'),
+            tasdiqlash_kodi=str(random.randrange(10000, 100000))
+        )
+        mijoz = SMSClient(
+            api_url="https://notify.eskiz.uz/api/",
+            email=settings.ESKIZ_GMAIL,
+            password=settings.ESKIZ_PAROL,
+        )
+        mijoz._send_sms(
+            phone_number=profil.tel,
+            message=f"Tasdiqlash kodi {profil.tasdiqlash_kodi}"
+        )
+        login(request, profil)
+        return redirect('/user/tasdiqlash/')
+
+
+class KodTasdiqlash(View):
+    def get(self, request):
+        return render(request, 'tasdiqlash.html')
+
+    def post(self, request):
+        profil = Profil.objects.get(id=request.user.id)
+        if profil.tasdiqlash_kodi == request.POST.get('kod'):
+            profil.tasdiqlangan = True
+            profil.save()
             return redirect('/user/login/')
+        return redirect('/user/tasdiqlash/')
