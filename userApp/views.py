@@ -9,11 +9,7 @@ from eskiz.client import SMSClient
 
 class LoginView(View):
     def get(self, request):
-        if request.user.is_authenticated and request.user.tasdiqlangan:
-            return render(request, 'page-user-login.html')
-        elif request.user.tasdiqlangan == False:
-            return redirect('/user/tasdiqlash/')
-        return redirect('/user/register/')
+        return render(request, 'page-user-login.html')
 
     def post(self, request):
         user = authenticate(

@@ -40,7 +40,7 @@
 
                     <div class="rating-wrap my-3">
                         <ul class="rating-stars">
-                            <li style="width:80%" class="stars-active">
+                            <li style="width:{{ortachasi}}%" class="stars-active">
                                 <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -51,13 +51,13 @@
                                 <i class="fa fa-star"></i>
                             </li>
                         </ul>
-                        <small class="label-rating text-muted">132 reviews</small>
+                        <small class="label-rating text-muted">{{mahsulot.izoh_set.count}} reviews</small>
                         <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders
                         </small>
                     </div> <!-- rating-wrap.// -->
 
                     <div class="mb-3">
-                        <var class="price h4">USD {{ mahsulot.narx }}</var>
+                        <var class="price h4">SO'M {{ mahsulot.narx }}</var>
                         <span class="text-muted">{{ mahsulot.chegirma }}% chegirma</span>
                     </div> <!-- price-detail-wrap .// -->
 
@@ -123,15 +123,15 @@
         <div class="form-group">
             <label for="smileyRating">Your rating</label>
             <div class="rating-container d-flex" id="smileyRating" style="gap: 20px;">
-                <input type="radio" name="rating" value="1" id="smiley1" style="display:none;">
+                <input type="radio" name="rating" value="1" id="smiley1" style="display:none;" checked>
                 <label class="smiley-face" for="smiley1" style="cursor: pointer">&#9785;</label>
-                <input type="radio" name="rating" value="2" id="smiley2" style="display:none;">
+                <input type="radio" name="rating" value="2" id="smiley2" style="display:none;" >
                 <label class="smiley-face" for="smiley2" style="cursor: pointer">&#x1F610;</label>
-                <input type="radio" name="rating" value="3" id="smiley3" style="display:none;">
+                <input type="radio" name="rating" value="3" id="smiley3" style="display:none;" >
                 <label class="smiley-face" for="smiley3" style="cursor: pointer">&#x1F642;</label>
-                <input type="radio" name="rating" value="4" id="smiley4" style="display:none;">
+                <input type="radio" name="rating" value="4" id="smiley4" style="display:none;" >
                 <label class="smiley-face" for="smiley4" style="cursor: pointer">&#x1F600;</label>
-                <input type="radio" name="rating" value="5" id="smiley5" style="display:none;">
+                <input type="radio" name="rating" value="5" id="smiley5" style="display:none;" >
                 <label class="smiley-face" for="smiley5" style="cursor: pointer">&#x1F929;</label>
             </div>
         </div>
@@ -169,7 +169,7 @@
         <div class="col-md-6 offset-md-3">
             <h2 class="text-center mb-4">Reviews</h2>
             <hr>
-            {% for izoh in izohlar %}
+            {% for izoh in mahsulot.izoh_set.all %}
             <div class="row">
                 <div class="col-sm-2">
                     <div class="text-center">
@@ -190,7 +190,7 @@
                     <p>{{ izoh.matn }}</p>
                     <div class="user d-flex" style="gap: 300px">
                         <p><small class="text-muted">{{ izoh.sana }}</small></p>
-                        <p><small class="text-muted">{{ izoh.profil.ism }}</small></p>
+                        <p><small class="text-muted">{{ izoh.profil.first_name }} {{ izoh.profil.last_name }}</small></p>
                     </div>
                 </div>
             </div>
