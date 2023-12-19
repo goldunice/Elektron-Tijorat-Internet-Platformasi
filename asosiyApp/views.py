@@ -1,7 +1,20 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from buyurtmaApp.models import *
+from buyurtmaApp.models import SavatItem
 from .models import *
 from django.db.models import Avg
+
+
+class ProfileView(View):
+    def get(self, request):
+        content = {
+            'profil': Profil.objects.get(id=request.user.id),
+            'tanlanganlar_soni': len(Tanlangan.objects.filter(profil=request.user)),
+            'buyurtmalar': Buyurtma.objects.filter(savat=Savat.objects.get(profil=request.user))[:4],
+            'buyurtmalar_soni': len(Buyurtma.objects.filter(savat=Savat.objects.get(profil=request.user))),
+        }
+        return render(request, 'page-profile-main.html', content)
 
 
 class HomeLoginsizView(View):
@@ -12,7 +25,9 @@ class HomeLoginsizView(View):
 class HomeView(View):
     def get(self, request):
         content = {
-            "bolimlar": Bolim.objects.all()[:8]
+            "bolimlar": Bolim.objects.all()[:8],
+            "mahsulotlar": Mahsulot.objects.all()[3:6],
+            "maxsulotlar": Mahsulot.objects.all()[:12],
         }
         return render(request, "page-index.html", content)
 

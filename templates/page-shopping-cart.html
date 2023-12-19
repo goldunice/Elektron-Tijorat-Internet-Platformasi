@@ -1,7 +1,7 @@
 {% extends 'header.html' %}
 
 {% block content %}
-
+{% load mathfilters %}
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
 <div class="container">
@@ -20,45 +20,47 @@
 </tr>
 </thead>
 <tbody>
+	{% for item in itemlar %}
 <tr>
 	<td>
 		<figure class="itemside">
-			<div class="aside"><img src="{{i.rasm.url}}" class="img-sm"></div>
+			<div class="aside"><img src="{{item.mahsulot.media_set.first.rasm.url}}" class="img-sm"></div>
 			<figcaption class="info">
-				<a href="#" class="title text-dark">Mahsulot nomi</a>
-				<p class="text-muted small">Size: XL, Color: blue, <br> Brand: {{savat.mahsulot.detal.brend}}</p>
+				<a href="#" class="title text-dark">{{item.mahsulot.nom}}</a>
+				<p class="text-muted small">Size: XL, Color: blue, <br> Brand: {{item.mahsulot.brend}}</p>
 			</figcaption>
 		</figure>
 	</td>
-	<td> 
+	<td>
 		<div class="input-group mb-3 input-spinner">
         <div class="input-group-prepend">
-			<a href="/savat_q/{{savat.id}}/"><button class="btn btn-light" type="button" id="button-plus"> + </button></a>
+			<a href="/buyurtma/miqdor_q/{{item.id}}/"><button class="btn btn-light" type="button" id="button-plus"> + </button></a>
         </div>
-        <input type="text" class="form-control" value="3">
+        <input type="text" class="form-control" name="miqdor" value="{{item.miqdor}}">
         <div class="input-group-append">
-			<a href="/savat_k/{{savat.id}}/"><button class="btn btn-light" type="button" id="button-minus"> &minus; </button></a>
+			<a href="/buyurtma/miqdor_k/{{item.id}}/"><button class="btn btn-light" type="button" id="button-minus"> &minus; </button></a>
         </div>
         </div>
 	</td>
-	<td> 
-		<div class="price-wrap"> 
-			<var class="price">$69</var>
-			<small  class="text-muted"> $23 each </small>
+	<td>
+		<div class="price-wrap">
+			<var class="price">{{item.miqdor|mul:item.mahsulot.narx }} SO'M</var>
+			<small  class="text-muted"> {{item.mahsulot.narx}}SO'M each </small>
 		</div> <!-- price-wrap .// -->
 	</td>
-	<td class="text-right"> 
-	<a data-original-title="Save to Wishlist" title="" href="/tanlangan_qosh/{{savat.id}}/" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
-	<a href="/ochirish/{{savat.id}}/" class="btn btn-light btn-round"> Remove</a>
+	<td class="text-right">
+	<a data-original-title="Save to Wishlist" title="" href="/buyurtma/tanlangan_qosh/{{item.mahsulot.id}}/" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
+	<a href="/buyurtma/s_i_ochir/{{item.id}}/" class="btn btn-light btn-round"> Remove</a>
 	</td>
 </tr>
+	{% endfor %}
 </tbody>
 </table>
 
 <div class="card-body border-top">
-	<a href="/buyurtma_qosh/" class="btn btn-primary float-md-right"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
+	<a href="/buyurtma/buyurtma_qosh/" class="btn btn-primary float-md-right"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
 	<a href="#" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
-</div>	
+</div>
 </div> <!-- card.// -->
 
 <div class="alert alert-success mt-3">
@@ -74,7 +76,7 @@
 					<label>Have coupon?</label>
 					<div class="input-group">
 						<input type="text" class="form-control" name="" placeholder="Coupon code">
-						<span class="input-group-append"> 
+						<span class="input-group-append">
 							<button class="btn btn-primary">Apply</button>
 						</span>
 					</div>
@@ -86,21 +88,18 @@
 			<div class="card-body">
 					<dl class="dlist-align">
 					  <dt>Total price:</dt>
-					  <dd class="text-right">USD {{sum}}</dd>
+					  <dd class="text-right">{{sum}} SO'M</dd>
 					</dl>
 					<dl class="dlist-align">
 					  <dt>Discount:</dt>
-					  <dd class="text-right">USD {{chg}}</dd>
+					  <dd class="text-right">{{chg}} SO'M</dd>
 					</dl>
 					<dl class="dlist-align">
 					  <dt>Total:</dt>
-					  <dd class="text-right  h5"><strong>${{yakuniy}}</strong></dd>
+					  <dd class="text-right  h5"><strong>{{yakuniy}} SO'M</strong></dd>
 					</dl>
-					<hr>
-					<p class="text-center mb-3">
-						<img src="images/misc/payments.png" height="26">
-					</p>
-					
+
+
 			</div> <!-- card-body.// -->
 		</div>  <!-- card .// -->
 	</aside> <!-- col.// -->
@@ -188,7 +187,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		</section>	<!-- footer-top.// -->
 
 		<section class="footer-bottom text-center">
-		
+
 				<p class="text-white">Privacy Policy - Terms of Use - User Information Legal Enquiry Guide</p>
 				<p class="text-muted"> &copy 2019 Company name, All rights reserved </p>
 				<br>

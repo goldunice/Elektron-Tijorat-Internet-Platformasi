@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
-<head>
+<head>{% load static %}
 <meta charset="utf-8">
-		{% load static %}
 <meta http-equiv="pragma" content="no-cache" />
 <meta http-equiv="cache-control" content="max-age=604800" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,7 +9,7 @@
 <meta name="description" content="Bootstrap e-commerce html template similar to Alibaba">
 <meta name="keywords" content="Online template, shop, theme, template, html, css, bootstrap 4">
 
-<title>Website title - bootstrap alistyle html template</title>
+<title>Bosh sahifa</title>
 
 <link href="{% static 'images/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
 
@@ -35,7 +34,6 @@
 <body>
 
 <!-- REMOVE FOLLOWING LINK -->
-<a href="http://bootstrap-ecommerce.com/page-themes.html" class="btn btn-dark rounded-pill" style="font-size:13px; z-index:100; position: fixed; bottom:10px; right:10px;">Download theme</a>
 <!-- REMOVE  //END -->
 
 
@@ -45,11 +43,11 @@
 		<div class="row align-items-center">
 			<div class="col-xl-2 col-lg-3 col-md-12">
 				<a href="http://bootstrap-ecommerce.com" class="brand-wrap">
-					<img class="logo" src="images/logo.png?v=2.0">
+<!--					<img class="logo" src="images/logo.png?v=2.0">-->
 				</a> <!-- brand-wrap.// -->
 			</div>
 			<div class="col-xl-6 col-lg-5 col-md-6">
-				<form action="#" class="search-header">
+				<form method="get" class="search-header">
 					<div class="input-group w-100">
 						<select class="custom-select border-right"  name="category_name">
 								<option value="">All type</option><option value="codex">Special</option>
@@ -87,7 +85,7 @@
 						</a>
 					</div>
 					<div class="widget-header mr-3">
-						<a href="#" class="widget-view">
+						<a href="/buyurtma/buyurtmalar/" class="widget-view">
 							<div class="icon-area">
 								<i class="fa fa-store"></i>
 							</div>
@@ -95,7 +93,7 @@
 						</a>
 					</div>
 					<div class="widget-header">
-						<a href="#" class="widget-view">
+						<a href="/buyurtma/savat/" class="widget-view">
 							<div class="icon-area">
 								<i class="fa fa-shopping-cart"></i>
 							</div>

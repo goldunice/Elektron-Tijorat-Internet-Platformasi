@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'asosiyApp',
     'buyurtmaApp',
     'userApp',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

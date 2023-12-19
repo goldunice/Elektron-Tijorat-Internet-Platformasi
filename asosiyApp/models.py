@@ -38,3 +38,4 @@ class Izoh(models.Model):
     matn = models.TextField()
     baho = models.PositiveIntegerField(default=5)
     sana = models.DateField()
+
